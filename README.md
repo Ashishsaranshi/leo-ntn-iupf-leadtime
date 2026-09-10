@@ -1,7 +1,7 @@
 #Run command for sim_figs.py:
 python3 sim_figs.py --starlink starlink.txt --iridium iridium.txt --oneweb oneweb.txt
 
-##Expected output
+##Expected output:
 collecting passes ...
   starlink.txt: 106 satellites in the 550+/-25 km / 53+/-2 deg shell
   iridium.txt: 68 satellites in the 780+/-25 km / 86+/-2 deg shell
@@ -31,6 +31,6 @@ overhead 1200: Nmax(mu=500) = 220638
 #Run command for fig1.py:
 python3 fig1.py
 
-##Expected output
+##Expected output:
 done
 
