@@ -25,10 +25,10 @@ public element sets changes daily.
 ## Requirements
  
 ```
-python3 -m pip install skyfield matplotlib numpy
+python3 -m pip install -r requirements.txt
 ```
  
-Tested with Python 3.10, Skyfield 1.54, SGP4 2.x, Matplotlib 3.x.
+Tested with Python 3.10, Skyfield 1.55, SGP4 2.27, Matplotlib 3.10.9, and NumPy 2.2.6.
  
 ## Reproducing the figures
  
