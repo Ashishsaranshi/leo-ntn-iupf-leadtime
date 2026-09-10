@@ -95,6 +95,8 @@ def sat_altitude_km(sat):
     a = (GM / ((n_rev_day * 2*np.pi / 86400.0)**2))**(1/3)   # km
     return a - RE
 
+_SAT_CACHE = {}
+
 def load_real_sats(path, nsample, h_target=None, inc_target=None,
                    h_tol=25.0, inc_tol=2.0):
     """Load a CelesTrak TLE file (2- or 3-line format) and sample evenly.
@@ -103,6 +105,9 @@ def load_real_sats(path, nsample, h_target=None, inc_target=None,
     are kept, so a multi-shell constellation file (e.g. Starlink, which spans
     ~350-570 km) yields the single shell the paper claims to model.
     """
+    _key = (path, nsample, h_target, inc_target, h_tol, inc_tol)
+    if _key in _SAT_CACHE:                 # already loaded; don't re-announce
+        return _SAT_CACHE[_key]
     lines = [l.rstrip() for l in open(path) if l.strip()]
     sats = []
     for i, l in enumerate(lines):
@@ -132,7 +137,9 @@ def load_real_sats(path, nsample, h_target=None, inc_target=None,
             f"  https://celestrak.org/NORAD/elements/supplemental/sup-gp.php"
             f"?FILE=starlink&FORMAT=tle")
     step = max(1, len(sats)//nsample)
-    return sats[::step][:nsample]
+    out = sats[::step][:nsample]
+    _SAT_CACHE[_key] = out
+    return out
 
 def collect_passes(h, inc, tle_file=None):
     """Return list of pass dicts with sampled (t, elev, rtt) and derived stats."""
@@ -496,3 +503,4 @@ best550 = max(DATA['Starlink-550'], key=lambda p: p['M'])
 print(f"overhead 550: Nmax(mu=500) = {500*(best550['M']-K*best550['rtt_edge']):.0f}")
 best1200 = max(DATA['OneWeb-1200'], key=lambda p: p['M'])
 print(f"overhead 1200: Nmax(mu=500) = {500*(best1200['M']-K*best1200['rtt_edge']):.0f}")
+     
