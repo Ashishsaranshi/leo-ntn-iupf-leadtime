@@ -28,7 +28,7 @@ public element sets changes daily.
 python3 -m pip install -r requirements.txt
 ```
  
-Tested with Python 3.10, Skyfield 1.55, SGP4 2.27, Matplotlib 3.10.9, and NumPy 2.2.6.
+Tested with Python 3.10, Skyfield 1.54 (results verified identical on 1.55), SGP4 2.27, Matplotlib 3.10.9, NumPy 2.2.6.
  
 ## Reproducing the figures
  
